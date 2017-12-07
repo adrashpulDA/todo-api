@@ -1,5 +1,5 @@
 // c:\Program Files\MongoDB\Server\3.4\bin>mongod.exe --dbpath D:\Projects\Node\mongo-db-data
-const config = require('./config/config');
+const config = require('../config/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { ObjectID } = require('mongodb');
