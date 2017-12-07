@@ -1,4 +1,4 @@
-var env = process.env.NODEV_ENV || 'developmnet';
+var env = process.env.NODE_ENV || 'developmnet';
 
 console.log(`env ***** ${env}`);
 
