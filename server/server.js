@@ -8,7 +8,7 @@ var { Todo } = require('./models/todo');
 var { User } = require('./models/user');
 
 var app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 app.use(bodyParser.json());
 
@@ -61,14 +61,14 @@ app.delete('/todos/:id', (req, res) => {
         if (!todo) {
             res.status(404).send();
         }
-        res.status(200).send(todo);
+        res.status(200).send({todo});
     }).catch(err => {
         res.status(404).send();
     });
 });
 
 app.listen(port, () => {
-    console.log('Started up at port ' + port);
+    console.log(`Started up at port ${port}`);
 });
 
 module.exports = { app };
