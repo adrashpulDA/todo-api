@@ -257,7 +257,7 @@ describe('POST users/login', () => {
             })
             .expect(200)
             .expect(res => {
-                expect(res.header['x-auth']).toBeTruthy();
+                expect(res.headers['x-auth']).toBeTruthy();
             })
             .end((err, res) => {
                 if (err) {
@@ -269,7 +269,7 @@ describe('POST users/login', () => {
                         expect(user.toObject().tokens[1])
                             .toMatchObject({
                                 access: 'auth',
-                                tokens: res.headers['x-auth']
+                                token: res.headers['x-auth']
                             });
                         done();
                     })
@@ -300,3 +300,24 @@ describe('POST users/login', () => {
             });
     });
 });
+
+describe('DELETE /users/me/token', () => {
+    it('should remove auth token on logout', (done) => {
+        request(app)
+            .delete('/users/me/token')
+            .set('x-auth', users[0].tokens[0].token)
+            .expect(200)
+            .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+
+                User.findById(users[0]._id)
+                    .then(user => {
+                        expect(user.tokens.length).toBe(0);
+                        done();
+                    })
+                    .catch(e => done(e));
+            });
+    });
+}); 
